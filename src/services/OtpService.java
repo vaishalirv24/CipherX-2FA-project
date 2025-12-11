@@ -1,23 +1,21 @@
 package services;
-
-import java.util.HashMap;
 import java.util.Random;
 
 public class OtpService {
+    private String currentOtp;
+    private long expiryTime;
 
-    private HashMap<String, String> otpStorage = new HashMap<>();
-
-    public String generateOtp(String username) {
-        Random rand = new Random();
-        String otp = String.format("%06d", rand.nextInt(999999));
-        otpStorage.put(username, otp);
-        return otp;
+    public String generateOtp() {
+        Random random = new Random();
+        currentOtp = String.format("%06d", random.nextInt(1000000));
+        expiryTime = System.currentTimeMillis() + 2 * 60 * 1000; // valid 2 minutes
+        return currentOtp;
     }
 
-    public boolean validateOtp(String username, String otp) {
-        if (otpStorage.containsKey(username)) {
-            return otpStorage.get(username).equals(otp);
+    public boolean validateOtp(String otp) {
+        if (System.currentTimeMillis() > expiryTime) {
+            return false; // expired
         }
-        return false;
+        return otp.equals(currentOtp);
     }
 }
