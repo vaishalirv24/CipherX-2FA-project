@@ -1,4 +1,5 @@
 package services;
+
 import java.util.Random;
 
 public class OtpService {
@@ -19,3 +20,4 @@ public class OtpService {
         return otp.equals(currentOtp);
     }
 }
+
