@@ -9,6 +9,8 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+    
+    //yay
     }
 
     public String getUsername() {
